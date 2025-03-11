@@ -13,7 +13,12 @@ def division(a,b):
 def substraction(a,b):
     return a-b
 
-print(addition(a,b))
-print(multiplication(a,b))
-print(division(a,b))
-print(substraction(a,b))
+intvalue = input("Enter the value")
+if intvalue == 1:
+    addition(a,b)
+elif intvalue == 2:
+    multiplication(a,b)
+elif intvalue == 3:
+    division(a,b)
+elif intvalue == 4:
+    substraction(a,b)
