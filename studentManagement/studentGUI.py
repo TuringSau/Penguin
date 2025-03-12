@@ -22,6 +22,21 @@ def initialize_db():
     conn.commit()
     conn.close()
 
+def save_data(student):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("INSERT into students (id,name,age,grade) values(?,?,?,?)", (student["ID"],student["Name"], student["Age"],student["Grade"]))
+    conn.commit()
+    conn.close()
+
+def load_students_from_db():
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * from students")
+    rows = cursor.fetchall()
+    conn.close()
+    return [{"ID":row[0],"Name:"row[1],"Age:"row[2],"Grade:"row[3]} for row in rows]
+
 def load_students(filename="students.json"):
         if os.path.exists(filename):
             with open(filename,"r") as file:
