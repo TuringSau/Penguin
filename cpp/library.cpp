@@ -3,6 +3,7 @@
 #include<fstream>
 #include<sstream>
 #include<unordered_map>
+#include<queue>
 #include<algorithm>>
 
 using namespace std;
@@ -177,4 +178,46 @@ void exportToCSV(){
     }
     file.close();
     cout<<"Data exported to csv file.";
+}
+
+void listBorrowedBooks(){
+    cout<<"Borrowed Books";
+    for(const auto &book: library){
+        if(book.isBorrowed){
+            cout<<"ID:"<<book.id;
+        }
+    }
+}
+
+void findBookByAuthor(){
+    string author;
+    cout<<"Enter the author name";
+    getline(cin,author);
+    for(const auto &books: library){
+        if(books.author == author){
+            cout<<"ID:"<<books.id<<" Title:"<<books.title;
+        }
+    }
+}
+
+bool isBookAvailable(int bookid){
+    for(const auto& book: library){
+        if(book.id == bookid){
+            return !book.isBorrowed;
+        }
+    }
+    return false;
+}
+
+unordered_map<int,queue<string>> waitinglist;
+
+void reserverBook(){
+    int id;
+    string Username;
+    cout<<"Enter the Book id";
+    cin>>id;
+    cout<<"Enter you name:";
+    getline(cin,Username);
+    waitinglist[id].push(Username);
+    cout<<"Book reserver";
 }
